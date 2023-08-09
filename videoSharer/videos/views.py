@@ -10,9 +10,27 @@ from .forms import CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class Index(ListView):
-    model = Video 
+    #model = Video 
+    #template_name = 'videos/index.html'
+    #order_by = '-date_posted'
+
+    model = Video
     template_name = 'videos/index.html'
-    order_by = '-date_posted'
+    context_object_name = 'videos_by_category'
+
+    def get_queryset(self):
+        # Fetch all categories
+        categories = Category.objects.all()
+
+        # Create a dictionary to hold videos grouped by category
+        videos_by_category = {}
+
+        # For each category, fetch the videos and add them to the dictionary
+        for category in categories:
+            videos = Video.objects.filter(category=category).order_by('-date_posted')
+            videos_by_category[category] = videos
+
+        return videos_by_category
 
 class CreateVideo(LoginRequiredMixin, CreateView):
     model = Video
