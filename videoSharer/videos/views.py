@@ -72,6 +72,9 @@ class DetailVideo(View):
             )
             comment.save()
 
+            # Create a new instance of the form after saving the comment
+            form = CommentForm()
+
 
         comments = Comment.objects.filter(video=video).order_by('-created_on')
         categories = Video.objects.filter(category=video.category)[:15]
