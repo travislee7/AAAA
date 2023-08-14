@@ -99,14 +99,20 @@ WSGI_APPLICATION = 'videoSharer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', #Mysql Client Adapter
-        'NAME': 'vid_share', #Database Name
-        'USER': 'root', #Your Postgresql user
-        'PASSWORD': '', #Your Postgresql password
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+#{
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql', #Mysql Client Adapter
+#        'NAME': 'vid_share', #Database Name
+#        'USER': 'root', #Your Postgresql user
+#        'PASSWORD': '', #Your Postgresql password
+#        'HOST': '127.0.0.1',
+#        'PORT': '3306',
+#    }
+#}
 
 
 # Password validation
@@ -145,7 +151,7 @@ USE_TZ = True
 
 #STATIC_URL = 'static/'
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media Files 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
