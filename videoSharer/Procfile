@@ -1,1 +1,1 @@
-web: gunicorn --chdir videoSharer videoSharer.wsgi
+web: gunicorn videoSharer.videoSharer.wsgi
