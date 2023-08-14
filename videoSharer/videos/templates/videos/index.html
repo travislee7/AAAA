@@ -2,6 +2,90 @@
 
 {% block content %}
 <div class="container">
+    {% with total_categories=videos_by_category|length %}
+    {% for category, videos in videos_by_category.items %}
+    <div class="row">
+        <div class="col-md-12 my-3 d-flex justify-content-between align-items-center">
+            <h2>{{ category }} Videos</h2>
+            <a href="{% url 'category-list' category.pk %}" class="btn btn-primary">See All</a>
+        </div>
+    </div>
+    <div class="row justify-content-start overflow-hidden" id="video-row-{{ forloop.counter }}">
+        {% for video in videos|slice:":3" %}
+        <div class="card col-md-3 col-sm-12 mr-md-2 mt-5 p-3 border-0">
+            <a href="{% url 'video-detail' video.pk %}"><img src="/media/{{ video.thumbnail }}" width="256"
+                    height="144"></a>
+            <div class="card-body">
+                <a class="link-text" href="{% url 'video-detail' video.pk %}">
+                    <h5 class="text-center">{{ video.title }}</h5>
+                </a>
+                <p class="text-muted text-center m-0">{{ video.uploader }}</p>
+                <p class="text-muted text-center">{{ video.date_posted | date:"M d, Y" }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% endwith %}
+</div>
+</div>
+{% endblock content %}
+
+<script>
+    // Function to adjust the visibility of videos in a row
+    function adjustVideosVisibility(rowId) {
+        const maxVisibleVideos = 3;
+        const videoRow = document.getElementById(rowId);
+        const videoCards = videoRow.querySelectorAll('.card');
+        const totalVideos = videoCards.length;
+
+        for (let i = 0; i < totalVideos; i++) {
+            if (i < totalVideos - maxVisibleVideos) {
+                videoCards[i].style.display = 'none';
+            } else {
+                videoCards[i].style.display = 'block';
+            }
+        }
+    }
+
+    // Wait for the page to load and then adjust video visibility for each row
+    window.onload = function () {
+        {% for category, videos in videos_by_category.items %}
+        adjustVideosVisibility('video-row-{{ forloop.counter }}');
+        {% endfor %}
+    };
+</script>
+
+<!-- <div class="container">
+    {% with total_categories=videos_by_category|length %}
+    {% for category, videos in videos_by_category.items %}
+    <h2>{{ category }}</h2>
+    <div class="row justify-content-center">
+        {% if videos %}
+        {% for video in videos %}
+        <div class="card col-md-3 col-sm-12 mr-md-2 mt-5 p-3 border-0">
+            <a href="{% url 'video-detail' video.pk %}"><img src="/media/{{ video.thumbnail }}" width="256"
+                    height="144"></a>
+            <div class="card-body">
+                <a class="link-text" href="{% url 'video-detail' video.pk %}">
+                    <h5 class="text-center">{{ video.title }}</h5>
+                </a>
+                <p class="text-muted text-center m-0">{{ video.uploader }}</p>
+                <p class="text-muted text-center">{{ video.date_posted | date:"M d, Y" }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+
+        
+        <div class="col-md-3 col-sm-12 mr-md-2 mt-5 p-3 border-0"></div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% endwith %}
+</div> -->
+
+<!-- <div class="container">
     <div class="row justify-content-center">
         {% for object in object_list %}
         <div class="card col-md-3 col-sm-12 mr-md-2 mt-5 p-3 border-0">
@@ -17,5 +101,4 @@
         </div>
         {% endfor %}
     </div>
-</div>
-{% endblock content %}
+</div> -->

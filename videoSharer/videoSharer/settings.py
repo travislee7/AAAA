@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k$$l$gjzks=^g+!z3-=m=e#2jn^sy=x!ig-@hj3(aqy06p0vi4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -68,6 +68,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # ...
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # ...
 ]
 
 ROOT_URLCONF = 'videoSharer.urls'
@@ -96,8 +99,12 @@ WSGI_APPLICATION = 'videoSharer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql', #Mysql Client Adapter
+        'NAME': 'vid_share', #Database Name
+        'USER': 'root', #Your Postgresql user
+        'PASSWORD': '', #Your Postgresql password
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -136,7 +143,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+#STATIC_URL = 'static/'
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media Files 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -145,7 +154,14 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Email
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 't9723190@gmail.com'
+EMAIL_HOST_PASSWORD = 'thjttutveimthuap'
+
 
 # Sign in Redirect 
 LOGIN_REDIRECT_URL = 'index'

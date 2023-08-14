@@ -20,6 +20,7 @@ from videos import views as video_views
 from django.conf import settings 
 from django.conf.urls.static import static 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', video_views.Index.as_view(), name='index'),
@@ -29,3 +30,4 @@ urlpatterns = [
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
