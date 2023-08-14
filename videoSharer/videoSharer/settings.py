@@ -104,7 +104,7 @@ DATABASES = {
         'USER': 'root', #Your Postgresql user
         'PASSWORD': '', #Your Postgresql password
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': '28619',
     }
 }
 
