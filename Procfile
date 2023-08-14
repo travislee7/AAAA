@@ -1,1 +1,1 @@
-web: gunicorn videoSharer.videoSharer.wsgi
+web: gunicorn videoSharer.videoSharer.wsgi:application
