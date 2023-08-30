@@ -98,8 +98,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', #Mysql Client Adapter
         'NAME': 'vid_share', #Database Name
-        'USER': 'root', #Your Postgresql user
-        'PASSWORD': '', #Your Postgresql password
+        'USER': 'root', 
+        'PASSWORD': '', 
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
